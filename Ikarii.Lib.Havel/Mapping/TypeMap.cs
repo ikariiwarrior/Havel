@@ -25,7 +25,10 @@ SOFTWARE.
 
 namespace Ikarii.Lib.Havel.Mapping
 {
+   using Ikarii.Lib.Havel.Configuration;
    using System;
+   using System.Collections.Generic;
+   using System.Collections.ObjectModel;
 
 
    /// <summary>
@@ -39,11 +42,86 @@ namespace Ikarii.Lib.Havel.Mapping
       /// </summary>
       public Type Type { get; set; }
 
+      /// <summary>
+      /// Gets or sets the name of the database table for the mapped <see cref="T:Type" />.  If empty, the
+      /// TypeMap's <see cref="T:Convention">Naming Convention</see> will be used to generate a table name.
+      /// </summary>
+      public string Table { get; set; }
+
+      /// <summary>
+      /// Gets the <see cref="T:IdentityFormat" /> for the primary key of the mapped <see cref="T:Type" />.
+      /// Persist supports primary keys in the form of <see langword="int" />, <see cref="T:Guid"/>, or <see langword="string" />.
+      /// </summary>
+      public IdentityFormat IdentityFormat { get { return ( this.PrimaryKey.Format ); } }
+
+      /// <summary>
+      /// Gets the <see cref="T:IdentityMethod" /> for the primary key of the mapped <see cref="T:Type" />.
+      /// </summary>
+      public IdentityIncrement IdentityMethod { get { return ( this.PrimaryKey.Increment ); } }
+
+      /// <summary>
+      /// Gets or sets the <see cref="T:FieldMap" /> representing the primary key of the mapped <see cref="T:Type" />.
+      /// </summary>
+      public IdentityFieldMap PrimaryKey { get; private set; }
+
+      private List<FieldMap> m_fields;
+      /// <summary>
+      /// Gets a list of <see cref="T:FieldMap" /> of mapped fields.
+      /// </summary>
+      public ReadOnlyCollection<FieldMap> Fields { get { return ( this.m_fields.AsReadOnly() ); } }
+
+      private List<RelationalFieldMap> m_children;
+      /// <summary>
+      /// Gets a list of <see cref="T:FieldMap" /> of mapped children.
+      /// </summary>
+      public ReadOnlyCollection<RelationalFieldMap> Children { get { return ( this.m_children.AsReadOnly() ); } }
+
+      private List<FieldMap> m_referenced;
+      /// <summary>
+      /// Gets a list of <see cref="T:FieldMap" /> of mapped references.
+      /// </summary>
+      public ReadOnlyCollection<FieldMap> ReferencedFields { get { return ( this.m_referenced.AsReadOnly() ); } }
+
+      private List<FieldMap> m_foreignkeys;
+      /// <summary>
+      /// Gets a list of <see cref="T:FieldMap" /> of mapped foreign keys.
+      /// </summary>
+      public ReadOnlyCollection<FieldMap> ForeignKeys { get { return ( this.m_foreignkeys.AsReadOnly() ); } }
+
+      /// <summary>
+      /// Gets a list of Persist mapping warings.
+      /// </summary>
+      public List<String> Warnings { get; protected set; }
+
+      /// <summary>
+      /// Gets the <see cref="Ikarii.Lib.Havel.Configuration.Convention" /> used for the <see cref="T:Type" /> mapped.
+      /// </summary>
+      public Convention NamingConvention { get; protected set; }
 
       /// <summary>
       /// Instantiates TypeMap with only its lists initialized.  This constructor is used by <see cref="T:TypeMap{T}" />.
       /// </summary>
-      public TypeMap(){}
-      
+      protected TypeMap()
+      {
+         this.m_fields = new List<FieldMap>();
+         this.m_children = new List<RelationalFieldMap>();
+         this.m_referenced = new List<FieldMap>();
+         this.m_foreignkeys = new List<FieldMap>();
+         this.Warnings = new List<String>();
+         this.NamingConvention = ConventionTable.Instance.NamingConvention;
+      }
+
+      /// <summary>
+      /// Creates a new <see cref="Ikarii.Lib.Havel.Mapping.TypeMap" /> for the specified <paramref name="type"/>.
+      /// </summary>
+      /// <param name="type"><see cref="System.Type" /> to be mapped.</param>
+      public TypeMap( Type t ) : this() => this.Type = t;
+
+      /// <summary>
+      /// Creates a new <see cref="Ikarii.Lib.Havel.Mapping.TypeMap" /> for the specified <paramref name="type"/> and <paramref name="convention"/>.
+      /// </summary>
+      /// <param name="type"><see cref="System.Type" /> to be mapped.</param>
+      /// <param name="convention"<see cref="Ikarii.Lib.Havel.Configuration.Convention"/> to use when mapping to a database.</param>
+      public TypeMap( Type type, Convention convention ) : this( type ) => this.NamingConvention = convention;
    }
 }

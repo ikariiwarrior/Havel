@@ -53,7 +53,7 @@ namespace Ikarii.Lib.Havel.Configuration
       /// <summary>
       /// Delimiter to use when creating SQL statements.  Default is <see cref="Ikarii.Lib.Havel.Mapping.DelimiterFormat.Quoted"/>
       /// </summary>
-      public Mapping.DelimiterFormat Delimiter { get; set; } = Mapping.DelimiterFormat.Quoted;
+      public Mapping.IdentifierFormat Delimiter { get; set; } = Mapping.IdentifierFormat.Quoted;
 
 
 

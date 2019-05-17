@@ -49,8 +49,8 @@ namespace Ikarii.Lib.Havel.Tests
       [TestMethod]
       public void DefaultSettingsDelimiterSetToQuoted()
       {
-         Assert.IsTrue( this._default_settings.Delimiter == Ikarii.Lib.Havel.Mapping.DelimiterFormat.Quoted, 
-            $"Default delimiter should be: '{Ikarii.Lib.Havel.Mapping.DelimiterFormat.Quoted}'" );
+         Assert.IsTrue( this._default_settings.Delimiter == Ikarii.Lib.Havel.Mapping.IdentifierFormat.Quoted, 
+            $"Default delimiter should be: '{Ikarii.Lib.Havel.Mapping.IdentifierFormat.Quoted}'" );
       }
 
 

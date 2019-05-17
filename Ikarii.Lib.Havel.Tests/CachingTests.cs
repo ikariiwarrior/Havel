@@ -38,23 +38,24 @@ namespace Ikarii.Lib.Havel.Tests
       public void TestTypeMapCacheCanStoreAndRetrieveTypeMaps()
       {
          TypeCache tc = TypeCache.Instance;
-         tc.AddType( typeof( DummyClass ), new Mapping.TypeMap() { Type = typeof( DummyClass ) } );
-         var result = tc.GetType( typeof( DummyClass ) );
+         tc.AddType( typeof( TestMappedClass ), new Mapping.TypeMap() { Type = typeof( TestMappedClass ) } );
+         var result = tc.GetType( typeof( TestMappedClass ) );
          Assert.IsInstanceOfType( result, typeof( Mapping.TypeMap ) );
          Assert.IsNotNull( result );
-         Assert.IsTrue( result.Type == typeof( DummyClass ) );
+         Assert.IsTrue( result.Type == typeof( TestMappedClass ) );
       }
 
       [TestMethod]
       public void TestTypeMapCacheWontGenerateExceptionIfTypeNotStored()
       {
          TypeCache tc = TypeCache.Instance;
-         var result = tc.GetType( typeof( DummyClass ) );
-         var is_default = result == default( Mapping.TypeMap );
+         var result = tc.GetType( typeof( TestUnmappedClass ) );
+         var is_default = ( result == default( Mapping.TypeMap ) );
          Assert.IsTrue( is_default, $"{result} is default: {is_default}" );
          Assert.IsNull( result, $"{result} is not null" );
       }
 
-      public class DummyClass{}
+      public class TestMappedClass{}
+      public class TestUnmappedClass { }
    }
 }
