@@ -35,12 +35,10 @@ namespace Ikarii.Lib.Havel.Mapping
    /// include reference or static reference fields, where the FieldMap represents a foriegn key.</remarks>
    public class FieldMap : BaseFieldMap, IFieldMap
    {
-
       /// <summary>
 		/// Gets or Sets the static nature of this field. Static fields are excluded from insert, update and delete operations.
 		/// </summary>
 		public bool Static { get; set; }
-
 
       /// <summary>
       /// Gets or Sets the default value of this field. If the value of the field is default() or null during insert operations, 
@@ -63,7 +61,6 @@ namespace Ikarii.Lib.Havel.Mapping
       /// </summary>
       public Type Parent { get; set; }
 
-
       /// <summary>
       /// Determines if field can be null for saving operations.
       /// </summary>
@@ -85,6 +82,10 @@ namespace Ikarii.Lib.Havel.Mapping
          get { return ( this.MapType == FieldMapType.ForeignKey || this.MapType == FieldMapType.PrimaryForeignKey ); }
       }
 
+
+      public bool IsIdentity { get { return ( this is IdentityFieldMap ); } }
+
+      public bool IsEncrypted { get { return ( this is EncryptedFieldMap ); } }
       /// <summary>
       /// Gets or sets a <see cref="T:Boolean"/> value indicating whether or not this field should us encryption.
       /// </summary>

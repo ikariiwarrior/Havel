@@ -25,7 +25,7 @@ SOFTWARE.
 
 namespace Ikarii.Lib.Havel.Mapping
 {
-   class EncryptedFieldMap
+   public class EncryptedFieldMap : FieldMap
    {
    }
 }

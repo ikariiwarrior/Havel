@@ -30,9 +30,8 @@ namespace Ikarii.Lib.Havel.Configuration
 
    using Microsoft.Extensions.Configuration;
 
-   /// <summary>   A settings. This class cannot be inherited. </summary>
-   ///
-   /// <remarks>   Shawn, 7/12/2017. </remarks>
+   /// <summary></summary>
+   /// <remarks></remarks>
    public sealed class Settings
    {
 

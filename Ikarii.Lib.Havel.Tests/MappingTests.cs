@@ -7,13 +7,13 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace Ikarii.Lib.Havel.Tests
 {
    [TestClass]
-   public class CachingTests
+   public class MappingTests
    {
       private readonly IConfigurationRoot _config;
       private readonly Ikarii.Lib.Havel.Configuration.Settings _default_settings;
       private readonly Ikarii.Lib.Havel.Configuration.Settings _custom_settings;
 
-      public CachingTests()
+      public MappingTests()
       {
          var collection = new ServiceCollection();
          collection.AddOptions();
@@ -34,28 +34,7 @@ namespace Ikarii.Lib.Havel.Tests
 
       }
 
-      [TestMethod]
-      public void TestTypeMapCacheCanStoreAndRetrieveTypeMaps()
-      {
-         TypeCache tc = TypeCache.Instance;
-         tc.AddType( typeof( TestMappedClass ), new Mapping.TypeMap( typeof( TestMappedClass ) ) );
-         var result = tc.GetType( typeof( TestMappedClass ) );
-         Assert.IsInstanceOfType( result, typeof( Mapping.TypeMap ) );
-         Assert.IsNotNull( result );
-         Assert.IsTrue( result.Type == typeof( TestMappedClass ) );
-      }
 
-      [TestMethod]
-      public void TestTypeMapCacheWontGenerateExceptionIfTypeNotStored()
-      {
-         TypeCache tc = TypeCache.Instance;
-         var result = tc.GetType( typeof( TestUnmappedClass ) );
-         var is_default = ( result == default( Mapping.TypeMap ) );
-         Assert.IsTrue( is_default, $"{result} is default: {is_default}" );
-         Assert.IsNull( result, $"{result} is not null" );
-      }
 
-      public class TestMappedClass{}
-      public class TestUnmappedClass { }
    }
 }
