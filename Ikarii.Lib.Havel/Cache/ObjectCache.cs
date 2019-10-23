@@ -33,6 +33,9 @@ namespace Ikarii.Lib.Havel.Cache
 
    using Ikarii.Lib.Havel.Mapping;
 
+   /// <summary>
+   /// 
+   /// </summary>
    internal class ObjectCache
    {
 	  private static CancellationTokenSource m_reset_cache_token = new CancellationTokenSource();

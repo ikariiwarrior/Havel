@@ -33,6 +33,9 @@ namespace Ikarii.Lib.Havel.Cache
 
    using Ikarii.Lib.Havel.Mapping;
 
+   /// <summary>
+   /// 
+   /// </summary>
    public class TypeCache
    {
 	  private static CancellationTokenSource m_reset_cache_token = new CancellationTokenSource();
@@ -43,8 +46,8 @@ namespace Ikarii.Lib.Havel.Cache
 
 	  private TypeCache() => this.m_cache = new MemoryCache( new MemoryCacheOptions() );
 
-	  public static TypeMap AddType( Type type, TypeMap map ) => Instance.InternalAddType( type, map );
-	  private TypeMap InternalAddType( Type type, TypeMap map )
+	  public static void AddType( Type type, TypeMap map ) => Instance.InternalAddType( type, map );
+	  private void InternalAddType( Type type, TypeMap map )
 	  {
 		 var options = new MemoryCacheEntryOptions()
 			.SetSlidingExpiration( TimeSpan.FromMinutes( 60 ) )
@@ -52,18 +55,11 @@ namespace Ikarii.Lib.Havel.Cache
 
 		 options.AddExpirationToken( new CancellationChangeToken( m_reset_cache_token.Token ) );
 
-		 return ( this.m_cache.Set( type.FullName, map, options ) );
+		 this.m_cache.Set( type.FullName, map, options );
 	  }
 
 	  public static TypeMap GetType( Type type ) => Instance.InternalGetType( type );
 	  private TypeMap InternalGetType( Type type ) => this.m_cache.Get<TypeMap>( type.FullName );
-
-	  public static bool TryGetType( Type type, out TypeMap typeMap ) => Instance.InternalTryGetType( type, out typeMap );
-	  private bool InternalTryGetType( Type type, out TypeMap typeMap )
-	  {
-		 var result = this.m_cache.TryGetValue<TypeMap>( type, out typeMap );
-		 return ( result );
-	  }
 
 	  public static bool ContainsType( Type type ) => Instance.InternalContainsType( type );
 	  private bool InternalContainsType( Type type )
