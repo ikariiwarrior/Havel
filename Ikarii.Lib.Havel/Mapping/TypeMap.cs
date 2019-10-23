@@ -65,33 +65,33 @@ namespace Ikarii.Lib.Havel.Mapping
       public IdentityFieldMap PrimaryKey { get; private set; }
 
       private List<FieldMap> m_fields;
-      /// <summary>
-      /// Gets a list of <see cref="T:FieldMap" /> of mapped fields.
-      /// </summary>
-      public ReadOnlyCollection<FieldMap> Fields { get { return ( this.m_fields.AsReadOnly() ); } }
+	  /// <summary>
+	  /// Gets a list of <see cref="T:FieldMap" /> of mapped fields.
+	  /// </summary>
+	  public ReadOnlyCollection<FieldMap> Fields => ( this.m_fields.AsReadOnly() );
 
-      private List<RelationalFieldMap> m_children;
-      /// <summary>
-      /// Gets a list of <see cref="T:FieldMap" /> of mapped children.
-      /// </summary>
-      public ReadOnlyCollection<RelationalFieldMap> Children { get { return ( this.m_children.AsReadOnly() ); } }
+	  private List<RelationalFieldMap> m_children;
+	  /// <summary>
+	  /// Gets a list of <see cref="T:FieldMap" /> of mapped children.
+	  /// </summary>
+	  public ReadOnlyCollection<RelationalFieldMap> Children => ( this.m_children.AsReadOnly() );
 
-      private List<FieldMap> m_referenced;
-      /// <summary>
-      /// Gets a list of <see cref="T:FieldMap" /> of mapped references.
-      /// </summary>
-      public ReadOnlyCollection<FieldMap> ReferencedFields { get { return ( this.m_referenced.AsReadOnly() ); } }
+	  private List<FieldMap> m_referenced;
+	  /// <summary>
+	  /// Gets a list of <see cref="T:FieldMap" /> of mapped references.
+	  /// </summary>
+	  public ReadOnlyCollection<FieldMap> ReferencedFields => ( this.m_referenced.AsReadOnly() );
 
-      private List<FieldMap> m_foreignkeys;
-      /// <summary>
-      /// Gets a list of <see cref="T:FieldMap" /> of mapped foreign keys.
-      /// </summary>
-      public ReadOnlyCollection<FieldMap> ForeignKeys { get { return ( this.m_foreignkeys.AsReadOnly() ); } }
+	  private List<FieldMap> m_foreignkeys;
+	  /// <summary>
+	  /// Gets a list of <see cref="T:FieldMap" /> of mapped foreign keys.
+	  /// </summary>
+	  public ReadOnlyCollection<FieldMap> ForeignKeys => ( this.m_foreignkeys.AsReadOnly() );
 
-      /// <summary>
-      /// Gets a list of Persist mapping warings.
-      /// </summary>
-      public List<String> Warnings { get; protected set; }
+	  /// <summary>
+	  /// Gets a list of Persist mapping warings.
+	  /// </summary>
+	  public List<String> Warnings { get; protected set; }
 
       /// <summary>
       /// Gets the <see cref="Ikarii.Lib.Havel.Configuration.Convention" /> used for the <see cref="T:Type" /> mapped.
@@ -99,8 +99,11 @@ namespace Ikarii.Lib.Havel.Mapping
       public Convention NamingConvention { get; protected set; }
 
       /// <summary>
-      /// Instantiates TypeMap with only its lists initialized.  This constructor is used by <see cref="T:TypeMap{T}" />.
+      /// Instantiates TypeMap with only its lists initialized and the current NamingConvention.  This constructor is used by <see cref="T:TypeMap{T}" />.
       /// </summary>
+	  /// <remarks>
+	  /// Note: ConventionTable uses the Singleton pattern
+	  /// </remarks>
       protected TypeMap()
       {
          this.m_fields = new List<FieldMap>();

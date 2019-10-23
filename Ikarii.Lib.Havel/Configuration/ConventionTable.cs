@@ -43,16 +43,13 @@ namespace Ikarii.Lib.Havel.Configuration
          set { this.m_convention = value; }
       }
 
-      private ConventionTable()
-      {
-         this.m_convention = new Convention();
-      }
+	  private ConventionTable() => this.m_convention = new Convention();
 
-      /// <summary>
-      /// Registers a <see cref="T:TypeMap"/> with the Type cache.
-      /// </summary>
-      /// <param name="typemap"><see cref="T:TypeMap"/> to register.</param>
-      //public void RegisterTypeMap( TypeMap typemap ) { TypeCache.AddType( typemap.Type, typemap ); }
+	  /// <summary>
+	  /// Registers a <see cref="T:TypeMap"/> with the Type cache.
+	  /// </summary>
+	  /// <param name="typemap"><see cref="T:TypeMap"/> to register.</param>
+	  //public void RegisterTypeMap( TypeMap typemap ) { TypeCache.AddType( typemap.Type, typemap ); }
    }
 }
 
