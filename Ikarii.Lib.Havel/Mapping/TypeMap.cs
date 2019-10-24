@@ -126,5 +126,9 @@ namespace Ikarii.Lib.Havel.Mapping
       /// <param name="type"><see cref="System.Type" /> to be mapped.</param>
       /// <param name="convention"<see cref="Ikarii.Lib.Havel.Configuration.Convention"/> to use when mapping to a database.</param>
       public TypeMap( Type type, Convention convention ) : this( type ) => this.NamingConvention = convention;
+
+
+	  
+
    }
 }
